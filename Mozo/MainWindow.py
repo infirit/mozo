@@ -212,11 +212,7 @@ class MainWindow:
 		menu_tree = self.tree.get_object('menu_tree')
 		menu_tree.set_model(self.menu_store)
 		for menu in self.menu_store:
-			#this might not work for some reason
-			try:
-				menu_tree.expand_to_path(menu.path)
-			except:
-				pass
+			menu_tree.expand_to_path(menu.path)
 		menu_tree.get_selection().select_path((0,))
 		self.on_menu_tree_cursor_changed(menu_tree)
 

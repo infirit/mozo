@@ -77,10 +77,7 @@ class MainWindow:
 		gtk.main()
 
 	def menuChanged(self, *a):
-		if self.timer:
-			gobject.source_remove(self.timer)
-			self.timer = None
-		self.timer = gobject.timeout_add(3, self.loadUpdates)
+		self.loadUpdates()
 
 	def loadUpdates(self):
 		if not self.allow_update:
@@ -613,11 +610,7 @@ class MainWindow:
 		dialog.hide()
 
 	def on_close_button_clicked(self, button):
-		try:
-			self.tree.get_object('mainwindow').hide()
-		except:
-			pass
-		gobject.timeout_add(10, self.quit)
+		self.tree.get_object('mainwindow').hide()
 
 	def on_style_set(self, *args):
 		self.loadUpdates()

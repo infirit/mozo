@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# vim: set noexpandtab:
 #   Mozo Menu Editor - Simple fd.o Compliant Menu Editor
 #   Copyright (C) 2006  Travis Watkins, Heinrich Wendel
 #

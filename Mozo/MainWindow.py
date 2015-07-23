@@ -22,6 +22,7 @@ import cgi, os
 import gettext
 import subprocess
 import urllib
+import tempfile
 try:
 	from Mozo import config
 	gettext.bindtextdomain(config.GETTEXT_PACKAGE,config.localedir)
@@ -547,8 +548,8 @@ class MainWindow:
 			if content_type == 'application/x-desktop':
 				input_stream = myfile.read()
 				(fd, tmppath) = tempfile.mkstemp(prefix='mozo-dnd', suffix='.desktop')
-                                with open(fd, "w") as f:
-                                    f.write(input_stream.read())
+				with open(fd, "w") as f:
+					f.write(input_stream.read())
 				parser = util.DesktopParser(tmppath)
 				self.editor.createItem(parent, parser.get('Icon'), parser.get('Name', self.editor.locale), parser.get('Comment', self.editor.locale), parser.get('Exec'), parser.get('Terminal'), before, after)
 			elif content_type in ('application/x-shellscript', 'application/x-executable'):

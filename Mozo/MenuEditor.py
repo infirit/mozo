@@ -61,15 +61,11 @@ class MenuEditor:
 			self.settings.dom = xml.dom.minidom.parse(self.settings.path)
 		self.__remove_whilespace_nodes(self.settings.dom)
 
-		self.save(True)
-
 	def save(self, from_loading=False):
 		for menu in ('applications', 'settings'):
 			fd = open(getattr(self, menu).path, 'w')
 			fd.write(re.sub("\n[\s]*([^\n<]*)\n[\s]*</", "\\1</", getattr(self, menu).dom.toprettyxml().replace('<?xml version="1.0" ?>\n', '')))
 			fd.close()
-		if not from_loading:
-			self.__loadMenus()
 
 	def quit(self):
 		for file_name in os.listdir(util.getUserItemPath()):

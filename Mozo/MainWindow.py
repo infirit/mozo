@@ -90,7 +90,7 @@ class MainWindow:
 		items, iter = item_tree.get_selection().get_selected()
 		update_items = False
 		update_type = None
-		item_id, separator_path = None, None
+		item_id = None
 		if iter:
 			update_items = True
 			update_type = items[iter][3].get_type()

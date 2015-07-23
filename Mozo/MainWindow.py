@@ -23,12 +23,11 @@ import gettext
 import subprocess
 import urllib
 import tempfile
-try:
-	from Mozo import config
-	gettext.bindtextdomain(config.GETTEXT_PACKAGE,config.localedir)
-	gettext.textdomain(config.GETTEXT_PACKAGE)
-except:
-	pass
+
+from Mozo import config
+gettext.bindtextdomain(config.GETTEXT_PACKAGE,config.localedir)
+gettext.textdomain(config.GETTEXT_PACKAGE)
+
 _ = gettext.gettext
 from Mozo.MenuEditor import MenuEditor
 from Mozo import util

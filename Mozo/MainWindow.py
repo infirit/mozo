@@ -88,18 +88,17 @@ class MainWindow:
 		item_tree = self.tree.get_object('item_tree')
 		items, iter = item_tree.get_selection().get_selected()
 		update_items = False
+		update_type = None
 		item_id, separator_path = None, None
 		if iter:
 			update_items = True
+			update_type = items[iter][3].get_type()
+			if items[iter][3].get_type() == matemenu.TYPE_ENTRY:
+				item_id = items[iter][3].get_desktop_file_id()
 			if items[iter][3].get_type() == matemenu.TYPE_DIRECTORY:
 				item_id = os.path.split(items[iter][3].get_desktop_file_path())[1]
-				update_items = True
-			elif items[iter][3].get_type() == matemenu.TYPE_ENTRY:
-				item_id = items[iter][3].get_desktop_file_id()
-				update_items = True
 			elif items[iter][3].get_type() == matemenu.TYPE_SEPARATOR:
 				item_id = items.get_path(iter)
-				update_items = True
 		menus, iter = menu_tree.get_selection().get_selected()
 		update_menus = False
 		menu_id = None
@@ -121,11 +120,12 @@ class MainWindow:
 			i = 0
 			for item in item_tree.get_model():
 				found = False
-				if item[3].get_type() == matemenu.TYPE_ENTRY and item[3].get_desktop_file_id() == item_id:
-					found = True
-				if item[3].get_type() == matemenu.TYPE_DIRECTORY and item[3].get_desktop_file_path():
-					if os.path.split(item[3].get_desktop_file_path())[1] == item_id:
+				if update_type != matemenu.TYPE_SEPARATOR:
+					if item[3].get_type() == matemenu.TYPE_ENTRY and item[3].get_desktop_file_id() == item_id:
 						found = True
+					if item[3].get_type() == matemenu.TYPE_DIRECTORY and item[3].get_desktop_file_path() and update_type == matemenu.TYPE_DIRECTORY:
+						if os.path.split(item[3].get_desktop_file_path())[1] == item_id:
+							found = True
 				if item[3].get_type() == matemenu.TYPE_SEPARATOR:
 					if not isinstance(item_id, tuple):
 						#we may not skip the increment via "continue"

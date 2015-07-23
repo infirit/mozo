@@ -567,10 +567,10 @@ class MainWindow:
 			return
 		path = items.get_path(iter)
 		#at top, can't move up
-		if path[0] == 0:
+		if path.get_indices()[0] == 0:
 			return
 		item = items[path][3]
-		before = items[(path[0] - 1,)][3]
+		before = items[(path.get_indices()[0] - 1,)][3]
 		if item.get_type() == matemenu.TYPE_ENTRY:
 			self.editor.moveItem(item, item.get_parent(), before=before)
 		elif item.get_type() == matemenu.TYPE_DIRECTORY:
@@ -585,7 +585,7 @@ class MainWindow:
 			return
 		path = items.get_path(iter)
 		#at bottom, can't move down
-		if path[0] == (len(items) - 1):
+		if path.get_indices()[0] == (len(items) - 1):
 			return
 		item = items[path][3]
 		after = items[path][3]
